@@ -2,10 +2,17 @@
 from flask import Flask, request, render_template
 #import the mongo module
 from pymongo import MongoClient
+import os
 
 #Connect to MongoDB Compass on my local PC
-cluster = MongoClient("mongodb://localhost:27017")  
+#cluster = MongoClient("mongodb://localhost:27017")  
 #cluster = MongoClient("mongodb+srv://baas:1234@cluster0.ftqsy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0") #To be used when port 27017 is opened on my PC
+
+#Retrieve MongoDB URI from environment variables
+mongo_uri = os.getenv('MONGO_URI')
+
+#Connect to MongoDB Atlas using the URI
+cluster = MongoClient(mongo_uri)
 
 #Set up the DB and collection method 
 db = cluster["db_test"]  #Connect to the db_test database
